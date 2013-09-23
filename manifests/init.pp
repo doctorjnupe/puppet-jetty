@@ -29,6 +29,12 @@ class jetty(
   file { "/etc/init.d/jetty":
     ensure => "${home}/jetty-distribution-${version}/bin/jetty.sh"
   } ->
+  
+  file { 'start.ini':
+    path    => '/opt/jetty/start.ini'
+    ensure  => 'file,
+    content => template("jetty/jetty_start.erb"),
+  }
 
   service {"jetty":
     enable     => true,
